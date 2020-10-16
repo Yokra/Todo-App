@@ -1,51 +1,59 @@
 import React from "react";
+import Form from "../pages/Form.js";
 
-export default class TodoList extends React.Component {
-   state = {
-        item:""
-   };
 
-  handleSubmit = (e) =>{
+export default class TodoList extends React.Component{
+    constructor(props) {
+        super(props);
+         this.state = {
+            item: [],
+            text: "",
+            
+        }
+    }
     
-    let newItem = this.state.item;
-    this.state.item.push(newItem);
-    this.setState({item : this.state.newItem}); 
-    const {onSubmitted} = this.props; 
-    e.preventDefault();
-     fetch("http://localhost:8080/todos", {
-      method: 'POST',
-      body: JSON.stringify({
-             item: this.state.item
-      }),
+componentDidMount() {
+    fetch("http://localhost:8080/todos")
+      .then((res) => res.json())
+      .then((res) => this.setState({ item: res }))
+      .catch((err) => err);
     
-    }) 
-      .then(res => res.json())
-      .then((res) => onSubmitted(res))
-      
-      
-          
-};
+    
+  };
 
-handleChange(e) {
-  this.setState({
-      item: e.target.value
-  });
-}
-
+    onFormSubmit = (newItem) => {
+    this.setState({
+     item: [newItem, this.props.item]
+     })
+    };  
+    
 render() {
+          
+        return(
+            <div>
+                 
+                <Form onFormSubmit = {this.onFormSubmit}/>
     
-  return (
-          <form onSubmit =  {this.handleSubmit}>
-          <input onChange = {e => this.setState({ item: e.target.value })}  placeholder="enter task" ></input>
-          <button type="submit"> add</button>
-          </form>               
-  );
- } 
-}     
+                 {this.state.item.map((newItem) => {
         
-  
+        return(
+         <ul>   
+        <li key={newItem} />
+          
+       
+        </ul>
+        
+        )
+        
+      })
+    }
+    
+            </div>
+            );
+        }
+    
+          
 
 
-   
 
-
+}
