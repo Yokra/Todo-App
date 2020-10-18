@@ -49,8 +49,8 @@ render() {
   return (
           
           <form  onSubmit = {this.handleSubmit}  >
-          <input onChange = {this.handleChange} value={this.state.item} placeholder="enter task" name="item"></input>
-          <button type="submit"> add</button>
+          <input onChange = {this.handleChange} value={this.state.item} placeholder="enter task" name="item"></input> 
+          <button type="submit"> add </button>
           </form>
            
           

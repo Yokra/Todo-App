@@ -9,6 +9,7 @@ app.use(cors());
 
 let todoTasks = [];
 
+
 //Read
 //takes us to the root(/) URL
 //getting all todos: GET  /todos
@@ -25,25 +26,18 @@ todoTasks.push(createNewTodo);
 return res.send(createNewTodo);   
 });
 
-//updating a todo with the matching id: PUT /todos/:id
-app.put("/todos/:id", (req, res) => {
-  const requestId = req.params.id;
+//updating a todo 
+app.patch("/todos/:id", (req, res) => {
+  todos = todos.map(item => {
+    if (item.id === Number(req.params.id)) {
 
-  let updatedTodos = todoTasks.filter((updatedTodos) => {
-    return updatedTodos.id == requestId;
-  })[0];
-
-  const keys = Object.keys(req.body);
-
-  keys.forEach((key) => {
-    updatedTodos[key] = req.body[key];
+      return { item: req.body.item, id: item.id };
+    }
+    return item;
   });
-  const index = todoTasks.indexOf(updatedTodos);
-
-  todoTasks[index] = updatedTodos;
-
-  return res.send(todoTasks[index]);
+  res.send({ todos });
 });
+
 
 //deletign a todo with matching id: DELETE /todos/:id
 app.delete("/todos/:id", (req, res) => {

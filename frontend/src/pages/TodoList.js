@@ -1,6 +1,6 @@
 import React from "react";
 import Form from "../pages/Form.js";
-
+//import Edit from "../pages/Edit.js"
 
 export default class TodoList extends React.Component{
     
@@ -25,6 +25,22 @@ export default class TodoList extends React.Component{
      todos: [res, ...this.state.todos]
      })
     };  
+
+
+    deleteItem(itemId) {
+        fetch("http://localhost:8080/todos/" + itemId, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        })
+          .then(res => res.json())
+        
+
+          this.setState({
+            todos: this.state.todos.filter(item => item.id !== itemId)
+          })
+      }
     
 render() {
           
@@ -33,24 +49,23 @@ render() {
                  
                 <Form addTask = {this.addTask}/>
                  
-                 {this.state.todos.map((item, i) => {
+                 {this.state.todos.map((item, id) => {
         
         return(
-         <ul>   
-         <li key={i}>{item.item} </li>
+          <ul>   
+             <li key={id}>{item.item} </li>
+             <button value={item.id} onClick={() => this.deleteItem(item.id)} />
+         </ul>
         
-        
-        </ul>
-        
-        
-        )
-        
+        ) 
       })
     }
-    
+            
             </div>
-            );
-        }
+            
+ );
+            
+}
     
           
 
