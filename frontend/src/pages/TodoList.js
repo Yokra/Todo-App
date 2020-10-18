@@ -3,27 +3,26 @@ import Form from "../pages/Form.js";
 
 
 export default class TodoList extends React.Component{
-    constructor(props) {
-        super(props);
-         this.state = {
-            item: [],
-            text: "",
+    
+        state = {
+            todos: [],
+            item: "",
             
         }
-    }
     
-componentDidMount() {
+    
+ componentDidMount() {
     fetch("http://localhost:8080/todos")
       .then((res) => res.json())
-      .then((res) => this.setState({ item: res }))
-      .catch((err) => err);
+      .then((res) => this.setState({ todos: res }))
+      .catch((err) => err); 
+      
     
-    
-  };
+  }
 
-    onFormSubmit = (newItem) => {
+    addTask = (res) => {
     this.setState({
-     item: [newItem, this.props.item]
+     todos: [res, ...this.state.todos]
      })
     };  
     
@@ -32,16 +31,17 @@ render() {
         return(
             <div>
                  
-                <Form onFormSubmit = {this.onFormSubmit}/>
-    
-                 {this.state.item.map((newItem) => {
+                <Form addTask = {this.addTask}/>
+                 
+                 {this.state.todos.map((item, i) => {
         
         return(
          <ul>   
-        <li key={newItem} />
-          
-       
+         <li key={i}>{item.item} </li>
+        
+        
         </ul>
+        
         
         )
         

@@ -3,20 +3,8 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import TodoList from "./pages/TodoList.js";
 
-export default class App extends React.Component {
-    /* state = { 
-      data: []
-     };
-    
-
-  componentDidMount() {
-    fetch("http://localhost:8080/todos")
-      .then((res) => res.json())
-      .then((res) => this.state.setState({ data: res }))
-      .catch((err) => err); 
-      
-  }
- */
+export default class App extends React.Component {  
+  
     
   render() {
     return (
@@ -36,7 +24,8 @@ export default class App extends React.Component {
             <div>
               To Do List
               
-               <TodoList /> 
+               <TodoList />
+              
             </div>             
           </Route>
           <Route path="/about">
