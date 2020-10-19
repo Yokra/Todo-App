@@ -1,13 +1,14 @@
 import React from "react";
 import Form from "../pages/Form.js";
-//import Edit from "../pages/Edit.js"
+import  "../pages/TodoList.css";
+
 
 export default class TodoList extends React.Component{
     
         state = {
             todos: [],
             item: "",
-            
+            id: "",
         }
     
     
@@ -17,15 +18,15 @@ export default class TodoList extends React.Component{
       .then((res) => this.setState({ todos: res }))
       .catch((err) => err); 
       
-    
-  }
+}
 
     addTask = (res) => {
     this.setState({
-     todos: [res, ...this.state.todos]
+      todos: [res, ...this.state.todos]
      })
-    };  
-
+  }; 
+    
+    
 
     deleteItem(itemId) {
         fetch("http://localhost:8080/todos/" + itemId, {
@@ -40,35 +41,50 @@ export default class TodoList extends React.Component{
           this.setState({
             todos: this.state.todos.filter(item => item.id !== itemId)
           })
-      }
-    
+      };
+
+
+      EditFormSubmit =  (editItem) => {
+
+        const {editTask} = this.props;
+
+        fetch("http://localhost:8080/todos/"+ editItem, {
+           method: 'PATCH',
+           headers: {
+            'Accept': 'application/json',
+           },
+           body: JSON.stringify({item: this.state.item}),
+         })
+          .then(res => res.json())
+          .then((res) => editTask(res));
+               
+      
+     };      
+     
 render() {
           
         return(
-            <div>
-                 
+            <div className="container"> 
                 <Form addTask = {this.addTask}/>
-                 
-                 {this.state.todos.map((item, id) => {
+                   {this.state.todos.map((item, id) => {
         
         return(
-          <ul>   
-             <li key={id}>{item.item} </li>
-             <button value={item.id} onClick={() => this.deleteItem(item.id)} />
-         </ul>
+        <div className="todos" key={id}>{item.item} 
+            {/* <button onClick = {this.EditFormSubmit}>Edit</button> */}
+            <span value={item.id} onClick={() => this.deleteItem(item.id)}>
+            <img className="close" alt="close-icon" src={require('../images/close.png')} style={{width: 35}} />
+            </span>
+        </div>
         
         ) 
       })
     }
             
-            </div>
+          </div>
             
- );
+    );
             
-}
-    
-          
-
-
+  }
+           
 
 }

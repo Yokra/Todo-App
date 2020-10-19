@@ -10,26 +10,21 @@ export default class App extends React.Component {
     return (
       
       <Router>
-        <nav>
+        <nav className="App">
           <ul>
-            <Link to="/">Home</Link>
+            <Link to="/">to do list</Link>
           </ul>
 
           <ul>
-            <Link to="/about">About</Link>
+            <Link to="/about">about</Link>
           </ul>
         </nav>
         <Switch>
-          <Route exact path="/">
-            <div>
-              To Do List
-              
-               <TodoList />
-              
-            </div>             
+          <Route exact path="/">  
+               <TodoList />            
           </Route>
           <Route path="/about">
-            <div>About this website</div>
+            <div className="text">This To Do List is part of KEA project.</div>
           </Route>
         </Switch>
       </Router>

@@ -1,0 +1,54 @@
+body {
+  background-color: whitesmoke;
+}
+
+.container {
+  border-color: teal;
+  border: solid;
+  border-radius: 8px;
+  min-height: 500px;
+  width: 400px;
+  margin: 40px auto;
+  font-size: medium;
+}
+
+input {
+  border: solid;
+  border-radius: 6px;
+  width: 200px;
+  height: 50px;
+  padding: 0 20px;
+  margin: 20px;
+}
+
+.inputForm {
+  font-size: medium;
+  outline: none;
+}
+
+input::placeholder {
+  color: black;
+  font-size: medium;
+}
+
+.todos {
+  margin: auto;
+  padding: 10px;
+  border-bottom: 1px solid black;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  background-color: whitesmoke;
+  border: 0;
+  outline: none;
+}
+
+.close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

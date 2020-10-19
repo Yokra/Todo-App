@@ -28,14 +28,15 @@ return res.send(createNewTodo);
 
 //updating a todo 
 app.patch("/todos/:id", (req, res) => {
+  let updatedTask = {}
   todos = todos.map(item => {
     if (item.id === Number(req.params.id)) {
-
-      return { item: req.body.item, id: item.id };
+       updatedTask = { ...item, ...req.body, id: item.id };
+      return { ...item, ...req.body, id: item.id };
     }
     return item;
   });
-  res.send({ todos });
+  res.send( {updatedTask} );
 });
 
 

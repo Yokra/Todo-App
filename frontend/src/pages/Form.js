@@ -7,7 +7,7 @@ export default class Form extends React.Component {
    };
    
  
-  handleSubmit =  (e) => {
+  handleFormSubmit =  (e) => {
       const newItem = {
       item: this.state.item,
       id: Date.now()
@@ -30,16 +30,16 @@ export default class Form extends React.Component {
     .then(res => res.json())
     .then(res => addTask(res))
     //this.props.addTask(newItem);
-    this.setState({ item: ""});
+    this.setState({ item: "" });
       
     console.log(this.state.item)
 
       
  
-    };            
+};            
 
 
-handleChange = (e)  =>{
+handleFormChange = (e)  =>{
   this.setState({ [e.target.name]: e.target.value });
 }
 
@@ -47,12 +47,14 @@ handleChange = (e)  =>{
 render() {
     
   return (
-          
-          <form  onSubmit = {this.handleSubmit}  >
-          <input onChange = {this.handleChange} value={this.state.item} placeholder="enter task" name="item"></input> 
-          <button type="submit"> add </button>
-          </form>
-           
+      
+        <form  onSubmit = {this.handleFormSubmit}  >
+          <input className="inputForm" onChange = {this.handleFormChange} value={this.state.item} placeholder="enter task" name="item"></input> 
+          <button type="submit"> 
+          <img alt="add-icon" src={require('../images/add.png')} style={{width: 55}} />
+           </button>
+        </form>
+     
           
                 
                   
